@@ -1,4 +1,4 @@
-package com.example.pokemonapp.ui
+package com.example.pokemonapp
 
 import android.os.Build
 import android.os.Bundle
