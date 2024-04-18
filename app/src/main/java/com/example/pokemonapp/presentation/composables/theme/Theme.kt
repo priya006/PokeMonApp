@@ -1,4 +1,4 @@
-package com.example.pokemonapp.ui.theme
+package com.example.pokemonapp.presentation.composables.theme
 
 import android.app.Activity
 import android.os.Build
