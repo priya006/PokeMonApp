@@ -27,15 +27,14 @@ import com.example.pokemonapp.data.model.Pokemon
 @Composable
 fun PokeMonListComposable(
     pokemonList: PokeMonResult<PokemonListResponse>,
-    onItemClick: (PokemonListResponse) -> Unit
+    onItemClick: (Int) -> Unit
 ) {
-
 
     when (pokemonList) {
         is PokeMonResult.Success -> {
             LazyColumn {
                 items(pokemonList.data.results) { item ->
-                    PokemonListItem(pokemonList = item)
+                    PokemonListItem(pokemonList = item,  onItemClick)
                 }
             }
         }
@@ -51,11 +50,13 @@ fun PokeMonListComposable(
 }
 
 
+
 @Composable
-fun PokemonListItem(pokemonList: Pokemon) {
+fun PokemonListItem(pokemonList: Pokemon,onItemClick: (Int) -> Unit) {
     Column(
         modifier = Modifier
-            .clickable(onClick = { /* Handle click if needed */ })
+            .clickable(onClick = { onItemClick(pokemonList.extractPokemonId() ?: -1)
+            })
             .padding(16.dp)
     ) {
         val textValue: String? = pokemonList.name
