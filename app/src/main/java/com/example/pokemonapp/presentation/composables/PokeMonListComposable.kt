@@ -62,3 +62,4 @@ fun PokemonListItem(pokemonList: Pokemon) {
         Text(text = textValue ?: "service returned nothing", style = TextStyle(fontSize = 20.sp))
     }
 }
+
