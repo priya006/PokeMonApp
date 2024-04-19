@@ -78,4 +78,5 @@ dependencies {
     implementation ("io.coil-kt:coil-compose:1.4.0")
     testImplementation("org.mockito:mockito-android:4.0.0")
     testImplementation("org.mockito:mockito-core:4.0.0")
+    implementation ("com.google.android.material:material:1.4.0")
 }
