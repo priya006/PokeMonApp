@@ -78,7 +78,7 @@ fun PokeMonDetailComposable(pokemonViewModel: PokemonViewModel,
                 .size(40.dp)
                 .semantics { contentDescription = "Loading..." }
         )
-        null -> Text("No data available")
+        null -> Text("No Data to Render in Detailed Screen")
     }
 }
 
