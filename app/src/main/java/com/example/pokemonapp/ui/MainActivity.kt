@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.pokemonapp.domain.repository.PokemonRepository
 import com.example.pokemonapp.network.RetrofitInstance
-import com.example.pokemonapp.presentation.composables.SetupNavigation
+import com.example.pokemonapp.presentation.composables.NavigateFromListToDetailScreen
 import com.example.pokemonapp.viewmodel.PokemonViewModel
 
 
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         // Create an instance of your PokemonViewModel
         val viewModel = PokemonViewModel(repository)
         setContent {
-            SetupNavigation(viewModel)
+            NavigateFromListToDetailScreen(viewModel)
         }
     }
 }

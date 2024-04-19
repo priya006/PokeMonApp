@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,18 +15,15 @@ import com.example.pokemonapp.presentation.composables.listpage.PokeMonListCompo
 import com.example.pokemonapp.viewmodel.PokemonViewModel
 
 @Composable
-fun SetupNavigation(pokemonViewModel: PokemonViewModel) {
+fun NavigateFromListToDetailScreen(
+    pokemonViewModel: PokemonViewModel,
+    backgroundColor: Color = Color.Blue
+) {
     val navController = rememberNavController()
-    val backgroundColorModifier = Modifier.background(Color.Blue)
+    val backgroundColorModifier = Modifier.background(backgroundColor)
     NavHost(navController, startDestination = "list") {
         composable("list") {
-            PokeMonListComposable(
-                pokemonViewModel = pokemonViewModel,
-                onItemClick = { pokemonId ->
-                    navController.navigate("detail/$pokemonId")
-                },
-                modifier = backgroundColorModifier
-            )
+            ListScreen(navController,backgroundColorModifier = backgroundColorModifier, pokemonViewModel)
         }
         composable(
             route = "detail/{pokemonId}",
@@ -33,14 +31,36 @@ fun SetupNavigation(pokemonViewModel: PokemonViewModel) {
         ) { backStackEntry ->
             val pokemonId = backStackEntry.arguments?.getInt("pokemonId")
             if (pokemonId != null) {
-                // Invoke the PokeMonDetailComposable and pass the pokemonId
-                PokeMonDetailComposable(
-                    pokemonViewModel = pokemonViewModel,
-                    pokeMonId = pokemonId
-                )
+                DetailScreen(pokemonViewModel,pokemonId)
             } else {
                 // Handle the case where pokemonId is null
             }
         }
     }
+}
+
+@Composable
+fun ListScreen(
+    navController: NavController,
+    backgroundColorModifier: Modifier,
+    pokemonViewModel: PokemonViewModel
+) {
+    PokeMonListComposable(
+        pokemonViewModel = pokemonViewModel,
+        onItemClick = { pokemonId ->
+            navController.navigate("detail/$pokemonId")
+        },
+        modifier = backgroundColorModifier
+    )
+}
+@Composable
+fun DetailScreen(
+    pokemonViewModel: PokemonViewModel,
+    pokemonId : Int
+) {
+    // Invoke the PokeMonDetailComposable and pass the pokemonId
+    PokeMonDetailComposable(
+        pokemonViewModel = pokemonViewModel,
+        pokeMonId = pokemonId
+    )
 }
