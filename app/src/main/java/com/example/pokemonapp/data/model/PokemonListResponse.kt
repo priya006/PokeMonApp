@@ -1,6 +1,8 @@
 package com.example.pokemonapp.data.model
 
 import android.net.Uri
+import retrofit2.http.Url
+
 
 data class PokemonListResponse(
     val count: Int,
@@ -12,7 +14,8 @@ data class PokemonListResponse(
 data class Pokemon(
     val name: String,
     val url: String
-) {
+)
+{
     fun extractPokemonId(): Int? {
         try {
             // Parse the URL using Uri.parse
@@ -26,4 +29,5 @@ data class Pokemon(
             return null
         }
     }
+
 }
