@@ -10,6 +10,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -34,8 +35,11 @@ fun PokeMonDetailComposable(pokemonViewModel: PokemonViewModel,
                             pokeMonId: Int,
                             modifier: Modifier = Modifier) {
 
-    val pokemonDetails by pokemonViewModel.pokemonDetails.observeAsState()
 
+    val pokemonDetails by pokemonViewModel.pokemonDetails.observeAsState()
+    LaunchedEffect(pokeMonId) {
+        pokemonViewModel.fetchPokemonDetails(pokeMonId)
+    }
     when(val pokemonDetailsResult = pokemonDetails) {
         is PokeMonResult.Success -> {
             val pokemonDetails = pokemonDetailsResult.data
