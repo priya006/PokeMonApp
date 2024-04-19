@@ -17,7 +17,7 @@ import com.example.pokemonapp.viewmodel.PokemonViewModel
 @Composable
 fun NavigateFromListToDetailScreen(
     pokemonViewModel: PokemonViewModel,
-    backgroundColor: Color = Color.Blue
+    backgroundColor: Color = Color.Transparent
 ) {
     val navController = rememberNavController()
     val backgroundColorModifier = Modifier.background(backgroundColor)

@@ -76,9 +76,6 @@ dependencies {
     implementation ("androidx.compose.runtime:runtime-livedata:1.0.0")
     implementation ("androidx.compose.foundation:foundation:1.6.6")
     implementation ("io.coil-kt:coil-compose:1.4.0")
-    // Mockito core library
-    testImplementation ("org.mockito:mockito-core:3.11.2")
-    // Mockito Android library (optional, for mocking Android-specific classes)
-    androidTestImplementation ("org.mockito:mockito-android:3.11.2")
-    testImplementation ("org.mockito:mockito-android:4.0.0")
+    testImplementation("org.mockito:mockito-android:4.0.0")
+    testImplementation("org.mockito:mockito-core:4.0.0")
 }
