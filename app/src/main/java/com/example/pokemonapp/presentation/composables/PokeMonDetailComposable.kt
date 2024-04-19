@@ -10,6 +10,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -18,21 +20,25 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.pokemonapp.data.model.PokeMonResult
-import com.example.pokemonapp.data.model.PokemonDetailsResponse
+import com.example.pokemonapp.viewmodel.PokemonViewModel
 
 @Composable
-fun PokeMonDetailComposable(pokemonDetails: PokeMonResult<PokemonDetailsResponse>?, pokeMonId : Int) {
+fun PokeMonDetailComposable(pokemonViewModel: PokemonViewModel,
+                            pokeMonId: Int,
+                            modifier: Modifier = Modifier) {
 
-    when(pokemonDetails) {
+    val pokemonDetails by pokemonViewModel.pokemonDetails.observeAsState()
+
+    when(val pokemonDetailsResult = pokemonDetails) {
         is PokeMonResult.Success -> {
-            val details = pokemonDetails.data
-            val sprites = details.sprites
+            val pokemonDetails = pokemonDetailsResult.data
+            val spritesImage = pokemonDetails.sprites
 
             // Create a new instance of PokemonDetailsResponse with modified id
-            val modifiedDetails = details.copy(id = pokeMonId)
+            val pokeMonDetailsModified = pokemonDetails.copy(id = pokeMonId)
 
             Card(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(16.dp),
             )
@@ -42,17 +48,17 @@ fun PokeMonDetailComposable(pokemonDetails: PokeMonResult<PokemonDetailsResponse
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Image(
-                        painter = rememberImagePainter(sprites.front_shiny ?: sprites.back_default ),
-                        contentDescription = "Placeholder Image",
+                        painter = rememberImagePainter(spritesImage.front_shiny ?: spritesImage.back_default ),
+                        contentDescription = "Pokemon Image",
                         modifier = Modifier
                             .size(500.dp) // Set the size of the image
                             .padding(8.dp), // Add padding around the image
                         contentScale = ContentScale.Fit // Scale the image to fit the container
                     )
-                    Text("ID: ${modifiedDetails.id}")
-                    Text("Name: ${modifiedDetails.name}")
-                    Text("Height: ${modifiedDetails.height}")
-                    Text("Weight: ${modifiedDetails.weight}")
+                    Text("ID: ${pokeMonDetailsModified.id}")
+                    Text("Name: ${pokeMonDetailsModified.name}")
+                    Text("Height: ${pokeMonDetailsModified.height}")
+                    Text("Weight: ${pokeMonDetailsModified.weight}")
                 }
             }
 

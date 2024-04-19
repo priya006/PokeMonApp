@@ -36,7 +36,7 @@ fun SetupNavigation(pokemonViewModel: PokemonViewModel) {
             if (pokemonId != null) {
                 // Invoke the PokeMonDetailComposable and pass the pokemonId
                 PokeMonDetailComposable(
-                    pokemonDetails = pokemonViewModel.pokemonDetails.observeAsState().value,
+                    pokemonViewModel = pokemonViewModel,
                     pokeMonId = pokemonId
                 )
             } else {
