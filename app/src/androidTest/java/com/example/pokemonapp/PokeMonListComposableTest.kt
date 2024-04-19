@@ -7,33 +7,24 @@ import com.example.pokemonapp.data.model.PokeMonResult
 import com.example.pokemonapp.data.model.Pokemon
 import com.example.pokemonapp.data.model.PokemonListResponse
 import com.example.pokemonapp.presentation.composables.listpage.PokeMonListComposable
+import com.example.pokemonapp.viewmodel.PokemonViewModel
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mockito.mock
+
 
 class PokeMonListComposableTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
-
+    val mockViewModel = mock(PokemonViewModel::class.java)
     @Test
     fun pokeMonListComposable_RenderSuccess() {
-        // Set up a successful result
-        val pokemonList = PokeMonResult.Success(
-            PokemonListResponse(
-                count = 2,
-                next = null,
-                previous = null,
-                results = listOf(
-                    Pokemon("ivysaur", "https://pokeapi.co/api/v2/pokemon/2/"),
-                    Pokemon("venusaur", "https://pokeapi.co/api/v2/pokemon/3/")
-                )
-            )
-        )
 
         // Launch the composable
         composeTestRule.setContent {
             PokeMonListComposable(
-                pokemonList = pokemonList,
+                pokemonViewModel = mockViewModel,
                 onItemClick = {}
             )
         }
@@ -50,7 +41,7 @@ class PokeMonListComposableTest {
 
         // Launch the composable with the loading state
         composeTestRule.setContent {
-            PokeMonListComposable(pokemonList = loadingState, onItemClick = {})
+            PokeMonListComposable(pokemonViewModel = mockViewModel, onItemClick = {})
         }
 
         // Verify that CircularProgressIndicator is present
@@ -66,7 +57,7 @@ class PokeMonListComposableTest {
         // Launch the composable
         composeTestRule.setContent {
             PokeMonListComposable(
-                pokemonList = errorResult,
+                pokemonViewModel = mockViewModel,
                 onItemClick = {}
             )
         }
