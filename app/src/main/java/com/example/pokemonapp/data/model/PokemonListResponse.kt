@@ -1,8 +1,6 @@
 package com.example.pokemonapp.data.model
 
 import android.net.Uri
-import retrofit2.http.Url
-
 
 data class PokemonListResponse(
     val count: Int,

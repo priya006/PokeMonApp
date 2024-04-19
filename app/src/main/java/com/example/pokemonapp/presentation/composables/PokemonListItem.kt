@@ -14,18 +14,18 @@ import androidx.compose.ui.unit.sp
 import com.example.pokemonapp.data.model.Pokemon
 
 @Composable
-fun PokemonListItem(pokemonList: Pokemon, onItemClick: (Int) -> Unit) {
+fun PokemonListItem(pokemon: Pokemon, onItemClick: (Int) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .clickable { onItemClick(pokemonList.extractPokemonId() ?: -1) }
+            .clickable { onItemClick(pokemon.extractPokemonId() ?: -1) }
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
             Text(
-                text = pokemonList.name ?: "Service returned nothing",
+                text = pokemon.name ?: "Service returned nothing",
                 style = TextStyle(fontSize = 20.sp)
             )
         }
