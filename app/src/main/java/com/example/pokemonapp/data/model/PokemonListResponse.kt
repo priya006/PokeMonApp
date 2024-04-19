@@ -1,5 +1,7 @@
 package com.example.pokemonapp.data.model
 
+import android.net.Uri
+
 data class PokemonListResponse(
     val count: Int,
     val next: String?,
@@ -10,19 +12,18 @@ data class PokemonListResponse(
 data class Pokemon(
     val name: String,
     val url: String
-)
-{
+) {
     fun extractPokemonId(): Int? {
-        // Define the regex pattern to match the number after the last '/'
-        val regex = """[^/]+$""".toRegex()
-
-        // Find the matched substring
-        val matchResult = regex.find(url)
-
-        // Extract the matched substring
-        val matchedString = matchResult?.value ?: return null
-
-        // Convert the matched substring to an integer
-        return matchedString.toIntOrNull()
+        try {
+            // Parse the URL using Uri.parse
+            val uri = Uri.parse(url)
+            // Get the last path segment which should be the ID
+            val idString = uri.lastPathSegment
+            // Convert the ID string to an integer
+            return idString?.toIntOrNull()
+        } catch (e: Exception) {
+            // Handle any exceptions that might occur during parsing
+            return null
+        }
     }
 }

@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
                     PokeMonListComposable(pokemonList = pokemonList) { pokemonId ->
                         //val pokemonId = pokemon.results.firstOrNull()?.extractPokemonId()
                         navController.navigate("detail/${pokemonId}")
+                        viewModel.fetchPokemonDetails(pokemonId)
                     }
                 }
 
@@ -52,7 +53,7 @@ class MainActivity : ComponentActivity() {
                     val pokemonId = backStackEntry.arguments?.getInt("pokemonId")
                     if (pokemonId != null) {
                         // Call the PokeMonDetailComposable and pass the pokemonId
-                        PokeMonDetailComposable(pokemonDetails = pokeDetails)
+                        PokeMonDetailComposable(pokemonDetails = pokeDetails, pokeMonId = pokemonId)
                     } else {
                         // Handle the case where pokemonId is null
                     }

@@ -50,7 +50,6 @@ fun PokeMonListComposable(
 }
 
 
-
 @Composable
 fun PokemonListItem(pokemonList: Pokemon,onItemClick: (Int) -> Unit) {
     Column(
