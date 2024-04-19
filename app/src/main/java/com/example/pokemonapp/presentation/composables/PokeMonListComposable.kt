@@ -14,8 +14,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.pokemonapp.data.model.PokeMonResult
-import com.example.pokemonapp.presentation.composables.PokemonListItem
+import com.example.pokemonapp.presentation.composables.ClickablePokemonCard
 import com.example.pokemonapp.viewmodel.PokemonViewModel
+
+
+/**
+ * A composable function to display a list of Pokémon.
+ *
+ * @param pokemonViewModel The [PokemonViewModel] responsible for providing the list of Pokémon.
+ * @param onItemClick A callback function to be invoked when a Pokémon item is clicked.
+ *                     It receives the ID of the clicked Pokémon as a parameter.
+ * @param modifier The modifier for the composable, used to customize its layout and appearance.
+ */
 @Composable
 fun PokeMonListComposable(
     pokemonViewModel: PokemonViewModel,
@@ -29,7 +39,7 @@ fun PokeMonListComposable(
                 val pokemonList = result.data.results
 
                 items(pokemonList) { pokemon ->
-                    PokemonListItem(pokemon = pokemon, onItemClick)
+                    ClickablePokemonCard(pokemon = pokemon, onItemClick)
                 }
             }
 

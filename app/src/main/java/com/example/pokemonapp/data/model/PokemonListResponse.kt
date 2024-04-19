@@ -11,13 +11,13 @@ data class PokemonListResponse(
 
 data class Pokemon(
     val name: String,
-    val url: String
+    val imageUrl: String
 )
 {
     fun extractPokemonId(): Int? {
         try {
             // Parse the URL using Uri.parse
-            val uri = Uri.parse(url)
+            val uri = Uri.parse(imageUrl)
             // Get the last path segment which should be the ID
             val idString = uri.lastPathSegment
             // Convert the ID string to an integer
@@ -27,5 +27,4 @@ data class Pokemon(
             return null
         }
     }
-
 }
