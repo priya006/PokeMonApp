@@ -26,42 +26,57 @@ class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() 
         fetchPokeMonListView()
     }
 
+    /**
+     * Fetches the Pokemon list from the repository and updates the [_pokemonList] LiveData
+     * with the result.
+     */
     fun fetchPokeMonListView() {
         viewModelScope.launch {
             _pokemonList.value = PokeMonResult.Loading
             try {
                 val pokemonListResponse = repository.getPokemonList()
                 _pokemonList.value = PokeMonResult.Success((pokemonListResponse))
-            }
-            catch (e: IOException) {
-                // Handle network-related errors, such as no internet connection
-                _pokemonList.value = PokeMonResult.Error("Network error occurred", e)
-            } catch (e: HttpException) {
-                // Handle HTTP-related errors, such as server errors
-                _pokemonList.value = PokeMonResult.Error("HTTP error occurred: ${e.code()}", e)
-            }catch (e: Exception) {
-                _pokemonList.value = PokeMonResult.Error("An error occurred", e)
+            } catch (e: Exception) {
+                handleApiError(_pokemonList, e)
             }
         }
     }
 
 
-    // Function to fetch Pokemon details
+    /**
+     * Fetches the details of a Pokemon with the specified [pokemonId] from the repository
+     * and updates the [_pokemonDetails] LiveData with the result.
+     *
+     * @param pokemonId The ID of the Pokemon whose details are to be fetched.
+     */
     fun fetchPokemonDetails(pokemonId: Int) {
         viewModelScope.launch {
             _pokemonDetails.value = PokeMonResult.Loading
             try {
                 val pokemonDetailsResponse = repository.getPokemonDetails(pokemonId)
                 _pokemonDetails.value = PokeMonResult.Success(pokemonDetailsResponse)
-            } catch (e: IOException) {
-                // Handle network-related errors, such as no internet connection
-                _pokemonDetails.value = PokeMonResult.Error("Network error occurred", e)
-            } catch (e: HttpException) {
-                // Handle HTTP-related errors, such as server errors
-                _pokemonDetails.value = PokeMonResult.Error("HTTP error occurred: ${e.code()}", e)
             } catch (e: Exception) {
-                _pokemonDetails.value = PokeMonResult.Error("An error occurred", e)
+                handleApiError(_pokemonDetails, e)
             }
         }
+    }
+
+    /**
+     * Handles API errors by generating an appropriate error message based on the type of exception [e],
+     * and updates the [resultLiveData] with the corresponding [PokeMonResult.Error].
+     *
+     * @param resultLiveData The LiveData to be updated with the error result.
+     * @param e The exception representing the API error.
+     */
+    private fun <T> handleApiError(
+        resultLiveData: MutableLiveData<PokeMonResult<T>>,
+        e: Exception
+    ) {
+        val errorMessage = when (e) {
+            is IOException -> "Network error occurred"
+            is HttpException -> "HTTP error occurred: ${e.code()}"
+            else -> "An error occurred"
+        }
+        resultLiveData.value = PokeMonResult.Error(errorMessage, e)
     }
 }
