@@ -4,22 +4,22 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
-import com.example.pokemonapp.domain.repository.PokemonRepository
-import com.example.pokemonapp.network.RetrofitInstance
 import com.example.pokemonapp.presentation.composables.NavigateFromListToDetailScreen
+import com.example.pokemonapp.viewmodel.PokeMonViewModelFactory
 import com.example.pokemonapp.viewmodel.PokemonViewModel
-import com.example.pokemonapp.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PokeMonListActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var pokeMonViewModelFactory : PokeMonViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val pokeApiService = RetrofitInstance.create()
-        // Create an instance of your PokemonRepository
-        val repository = PokemonRepository(pokeApiService)
-        // Create a ViewModelProvider.Factory for the PokemonViewModel
-        val viewModelFactory = ViewModelFactory(repository)
+
         setContent {
-            val viewModel = ViewModelProvider(this, viewModelFactory).get(PokemonViewModel::class.java)
+            val viewModel = ViewModelProvider(this, pokeMonViewModelFactory).get(PokemonViewModel::class.java)
             NavigateFromListToDetailScreen(viewModel)
         }
     }

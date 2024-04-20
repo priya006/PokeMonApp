@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -79,4 +81,7 @@ dependencies {
     testImplementation("org.mockito:mockito-android:4.0.0")
     testImplementation("org.mockito:mockito-core:4.0.0")
     implementation ("com.google.android.material:material:1.4.0")
+    //Dagger - Hilt
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 }

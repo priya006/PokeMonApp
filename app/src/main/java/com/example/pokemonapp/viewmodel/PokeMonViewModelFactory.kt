@@ -9,7 +9,7 @@ import com.example.pokemonapp.domain.repository.PokemonRepository
  *
  * @property repository The repository to be injected into the ViewModels.
  */
-class ViewModelFactory(private val repository: PokemonRepository) : ViewModelProvider.Factory {
+class PokeMonViewModelFactory(private val repository: PokemonRepository) : ViewModelProvider.Factory {
     /**
      * Creates a new instance of the specified ViewModel class.
      *
