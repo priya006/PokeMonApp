@@ -29,4 +29,8 @@ class PokemonRepository(val pokeMonApiService : PokeMonApiService) {
     suspend fun getPokemonDetails(pokeMonId : Int): PokemonDetailsResponse {
         return pokeMonApiService.getPokemonDetails(pokeMonId)
     }
+
+    suspend fun getPokemonDetailsPaginationDetails(offset : Int, limit :Int): PokemonListResponse {
+        return pokeMonApiService.getPokemonListWithPagination(offset,limit)
+    }
 }

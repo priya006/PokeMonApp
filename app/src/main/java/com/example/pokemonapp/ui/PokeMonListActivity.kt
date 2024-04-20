@@ -10,7 +10,7 @@ import com.example.pokemonapp.presentation.composables.NavigateFromListToDetailS
 import com.example.pokemonapp.viewmodel.PokemonViewModel
 import com.example.pokemonapp.viewmodel.ViewModelFactory
 
-class MainActivity : ComponentActivity() {
+class PokeMonListActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val pokeApiService = RetrofitInstance.create()
