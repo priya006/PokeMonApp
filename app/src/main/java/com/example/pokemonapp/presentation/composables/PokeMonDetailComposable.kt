@@ -65,16 +65,16 @@ fun PokeMonDetailComposable(pokemonViewModel: PokemonViewModel,
                         ),
                         contentDescription = "Pokemon Image",
                         modifier = Modifier
-                            .size(500.dp) // Set the size of the image
+                            .size(550.dp) // Set the size of the image
                             .padding(8.dp), // Add padding around the image
                         contentScale = ContentScale.Fit // Scale the image to fit the container
                     )
-                    Text("ID: ${pokeMonDetailsModified.id}")
-                    Text("Name: ${pokeMonDetailsModified.name}")
+                    Text("ID:     ${pokeMonDetailsModified.id}")
+                    Text("Name:   ${pokeMonDetailsModified.name}")
                     Text("Height: ${pokeMonDetailsModified.height}")
                     Text("Weight: ${pokeMonDetailsModified.weight}")
-                    Text("Type: ${typeName}")
-                    Text("Stats:${statsNumber}")
+                    Text("Type:   ${typeName}")
+                    Text("Stats:  ${statsNumber}")
                 }
             }
             Card(
