@@ -49,7 +49,11 @@ fun PokeMonDetailComposable(pokemonViewModel: PokemonViewModel,
             // Create a new instance of PokemonDetailsResponse with modified id
             val pokeMonDetailsModified = pokemonDetails.copy(id = pokeMonId)
             val types = pokemonDetails.types
+            val stats = pokemonDetails.stats
             val typeName = types.firstOrNull()?.type?.name ?: "Unknown Type"
+            val statsNumber = stats.firstOrNull()?.base_stat ?: 0
+
+
             Box() {
                 Column(
                     verticalArrangement = Arrangement.Top,
@@ -70,6 +74,7 @@ fun PokeMonDetailComposable(pokemonViewModel: PokemonViewModel,
                     Text("Height: ${pokeMonDetailsModified.height}")
                     Text("Weight: ${pokeMonDetailsModified.weight}")
                     Text("Type: ${typeName}")
+                    Text("Stats:${statsNumber}")
                 }
             }
             Card(
