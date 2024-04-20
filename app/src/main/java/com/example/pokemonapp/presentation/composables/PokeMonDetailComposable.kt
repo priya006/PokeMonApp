@@ -2,6 +2,7 @@ package com.example.pokemonapp.presentation.composables.detailpage
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -47,7 +48,30 @@ fun PokeMonDetailComposable(pokemonViewModel: PokemonViewModel,
 
             // Create a new instance of PokemonDetailsResponse with modified id
             val pokeMonDetailsModified = pokemonDetails.copy(id = pokeMonId)
-
+            val types = pokemonDetails.types
+            val typeName = types.firstOrNull()?.type?.name ?: "Unknown Type"
+            Box() {
+                Column(
+                    verticalArrangement = Arrangement.Top,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        painter = rememberImagePainter(
+                            spritesImage.front_shiny ?: spritesImage.back_default
+                        ),
+                        contentDescription = "Pokemon Image",
+                        modifier = Modifier
+                            .size(500.dp) // Set the size of the image
+                            .padding(8.dp), // Add padding around the image
+                        contentScale = ContentScale.Fit // Scale the image to fit the container
+                    )
+                    Text("ID: ${pokeMonDetailsModified.id}")
+                    Text("Name: ${pokeMonDetailsModified.name}")
+                    Text("Height: ${pokeMonDetailsModified.height}")
+                    Text("Weight: ${pokeMonDetailsModified.weight}")
+                    Text("Type: ${typeName}")
+                }
+            }
             Card(
                 modifier = modifier
                     .fillMaxWidth()
@@ -59,22 +83,18 @@ fun PokeMonDetailComposable(pokemonViewModel: PokemonViewModel,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Image(
-                        painter = rememberImagePainter(spritesImage.front_shiny ?: spritesImage.back_default ),
+                        painter = rememberImagePainter(
+                            spritesImage.front_shiny ?: spritesImage.back_default
+                        ),
                         contentDescription = "Pokemon Image",
                         modifier = Modifier
                             .size(500.dp) // Set the size of the image
                             .padding(8.dp), // Add padding around the image
                         contentScale = ContentScale.Fit // Scale the image to fit the container
                     )
-                    Text("ID: ${pokeMonDetailsModified.id}")
-                    Text("Name: ${pokeMonDetailsModified.name}")
-                    Text("Height: ${pokeMonDetailsModified.height}")
-                    Text("Weight: ${pokeMonDetailsModified.weight}")
                 }
             }
-
         }
-
         is PokeMonResult.Error -> Text(text = "Error occurred:")
         PokeMonResult.Loading ->      CircularProgressIndicator(
             modifier = Modifier
