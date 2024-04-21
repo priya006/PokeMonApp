@@ -2,14 +2,14 @@ package com.example.pokemonapp.domain.repository
 
 import com.example.pokemonapp.data.model.PokemonDetailsResponse
 import com.example.pokemonapp.data.model.PokemonListResponse
-import com.example.pokemonapp.network.PokeMonApiService
+import com.example.pokemonapp.network.PokemonApiService
 
 /**
  * Repository responsible for handling data operations related to Pokémon.
  *
  * @property pokeMonApiService The service interface for making API calls related to Pokémon.
  */
-class PokemonRepository(val pokeMonApiService : PokeMonApiService) {
+class PokemonRepository(val pokeMonApiService : PokemonApiService) {
 
     /**
      * Fetches the list of Pokémon from the API.

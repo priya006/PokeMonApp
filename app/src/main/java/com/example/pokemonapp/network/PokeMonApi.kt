@@ -4,14 +4,17 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-object RetrofitInstance {
+object PokeMonApi {
     const val BASE_URL = "https://pokeapi.co/api/v2/"
 
-    fun create(): PokeMonApiService {
+    /**
+     * Creates and provides an instance of [PokemonApiService] using Retrofit.
+     */
+    fun createService(): PokemonApiService {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(PokeMonApiService::class.java)
+            .create(PokemonApiService::class.java)
     }
 }
