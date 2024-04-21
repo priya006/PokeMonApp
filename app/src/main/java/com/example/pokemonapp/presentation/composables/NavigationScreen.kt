@@ -10,6 +10,11 @@ import androidx.navigation.navArgument
 import com.example.pokemonapp.presentation.composables.detailpage.PokeMonDetailComposable
 import com.example.pokemonapp.viewmodel.PokemonViewModel
 
+/**
+ * Composable function to navigate from the list screen to the detail screen using Jetpack Navigation.
+ *
+ * @param pokemonViewModel ViewModel containing the data and logic for the Pokemon-related features.
+ */
 @Composable
 fun NavigateFromListToDetailScreen(
     pokemonViewModel: PokemonViewModel,
@@ -25,35 +30,55 @@ fun NavigateFromListToDetailScreen(
         ) { backStackEntry ->
             val pokeMonId = backStackEntry.arguments?.getInt("pokeMonId")
             if (pokeMonId != null) {
-                DetailScreen(pokemonViewModel,pokeMonId)
+                DetailScreen(pokemonViewModel, pokeMonId)
             } else {
-                // navigating back to the previous screen
-                navController.popBackStack()
+                DisplayError(navController)
             }
         }
     }
 }
 
+/**
+ * Composable function representing the list screen of the Pokemon app.
+ *
+ * @param navController NavController used for navigation between composables.
+ * @param pokemonViewModel ViewModel containing the data and logic for the Pokemon-related features.
+ */
 @Composable
 fun ListScreen(
     navController: NavController,
     pokemonViewModel: PokemonViewModel
 ) {
     //pagination is handled
-    PagingListPage(pokemonViewModel = pokemonViewModel , onItemClick = { pokeMonId ->
+    PagingListPage(pokemonViewModel = pokemonViewModel, onItemClick = { pokeMonId ->
         navController.navigate("detail/$pokeMonId")
     })
-
-
 }
+
+/**
+ * Composable function representing the detail screen of the Pokemon app.
+ *
+ * @param pokemonViewModel ViewModel containing the data and logic for the Pokemon-related features.
+ * @param pokeMonId ID of the Pokemon to display details for.
+ */
 @Composable
 fun DetailScreen(
     pokemonViewModel: PokemonViewModel,
-    pokeMonId : Int
+    pokeMonId: Int
 ) {
     // Invoke the PokeMonDetailComposable and pass the pokeMonId
     PokeMonDetailComposable(
         pokemonViewModel = pokemonViewModel,
         pokeMonId = pokeMonId
     )
+}
+
+/**
+ * Composable function for displaying an error and navigating back to the previous screen.
+ *
+ * @param navController NavController used for navigating back to the previous screen.
+ */
+@Composable
+fun DisplayError(navController: NavController) {
+    navController.popBackStack()
 }
