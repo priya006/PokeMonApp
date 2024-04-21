@@ -34,7 +34,7 @@ class PokemonPagingDataSource(private val repository: PokemonRepository) : Pagin
         return try {
             val pageNumber = params.key ?: 0
            // val pageSize = params.loadSize
-            val data = repository.getPokemonDetailsPaginationDetails(pageNumber)
+            val data = repository.getPokemonListPagination(pageNumber)
             LoadResult.Page(
                 data = data.results,
                 prevKey = if (pageNumber > 0) pageNumber - 1 else null,

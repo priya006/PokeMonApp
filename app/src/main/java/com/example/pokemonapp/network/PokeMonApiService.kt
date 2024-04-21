@@ -10,13 +10,12 @@ interface PokeMonApiService {
     @GET("pokemon")
     suspend fun getPokemonList(): PokemonListResponse
 
-    @GET("pokemon/{id}")
-    suspend fun getPokemonDetails(@Path("id") pokemonId: Int): PokemonDetailsResponse
-
     @GET("pokemon")
     suspend fun getPokemonListWithPagination(
         @Query("offset") page: Int,
         @Query("limit") limit: Int = 20
     ): PokemonListResponse
 
+    @GET("pokemon/{id}")
+    suspend fun getPokemonDetails(@Path("id") pokemonId: Int): PokemonDetailsResponse
 }
