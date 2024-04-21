@@ -9,6 +9,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -40,7 +42,8 @@ fun ClickablePokemonCard(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
-            .clickable { onItemClick(pokeMonId) },
+            .clickable { onItemClick(pokeMonId) }
+            .semantics { contentDescription = "Clickable Pokemon Card" },
         shape = RoundedCornerShape(8.dp)
     ) {
         Column(
@@ -50,6 +53,7 @@ fun ClickablePokemonCard(
                 text = pokemon.name,
                 style = TextStyle(fontSize = textSize),
                 modifier = Modifier.padding(vertical = 8.dp)
+                    .semantics { contentDescription = "${pokemon.name}" }
             )
         }
     }
