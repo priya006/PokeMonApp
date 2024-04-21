@@ -15,6 +15,7 @@ import com.example.pokemonapp.data.model.PokemonPagingDataSource
 import retrofit2.HttpException
 import java.io.IOException
 
+
 class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() {
 
     private val _pokemonList = MutableLiveData<PokeMonResult<PokemonListResponse>>()
@@ -84,10 +85,9 @@ class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() 
     }
 
     /**
-     * Fetches a paginated list of Pokémon details from the API.
+     * Provides a PagingSource for fetching a paginated list of Pokémon details from the API.
      *
-     * @param offset The offset to fetch the paginated list from.
-     * @return A [PokemonListResponse] containing the paginated list of Pokémon details.
+     * @return A [PokemonPagingDataSource] for paginated Pokémon details.
      */
     fun getPokemonPagingSource(): PagingSource<Int, Pokemon> {
         return PokemonPagingDataSource(repository)
