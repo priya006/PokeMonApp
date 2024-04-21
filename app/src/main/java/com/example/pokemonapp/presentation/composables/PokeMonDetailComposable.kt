@@ -57,7 +57,7 @@ fun PokeMonDetailComposable(pokemonViewModel: PokemonViewModel,
             Box() {
                 Column(
                     verticalArrangement = Arrangement.Top,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Image(
                         painter = rememberImagePainter(

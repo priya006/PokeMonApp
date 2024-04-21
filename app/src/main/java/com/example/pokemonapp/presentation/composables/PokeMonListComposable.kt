@@ -31,10 +31,11 @@ import com.example.pokemonapp.data.model.Pokemon
 fun ClickablePokemonCard(
     pokemon: Pokemon,
     onItemClick: (Int) -> Unit,
-    modifier: Modifier = Modifier,
+    contentDescription: String,
     textSize: TextUnit = 20.sp,
     horizontalPadding: Dp = 16.dp,
-    verticalPadding: Dp = 8.dp
+    verticalPadding: Dp = 8.dp,
+    modifier: Modifier = Modifier
 ) {
     val pokeMonId = pokemon.extractPokeMonId() ?: -1
 
@@ -43,8 +44,8 @@ fun ClickablePokemonCard(
             .fillMaxWidth()
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
             .clickable { onItemClick(pokeMonId) }
-            .semantics { contentDescription = "Clickable Pokemon Card" },
-        shape = RoundedCornerShape(8.dp)
+            .semantics { this.contentDescription = contentDescription },
+        shape = RoundedCornerShape(8.dp),
     ) {
         Column(
             modifier = Modifier.padding(horizontal = horizontalPadding, vertical = verticalPadding)
@@ -53,7 +54,7 @@ fun ClickablePokemonCard(
                 text = pokemon.name,
                 style = TextStyle(fontSize = textSize),
                 modifier = Modifier.padding(vertical = 8.dp)
-                    .semantics { contentDescription = "${pokemon.name}" }
+                    .semantics { this.contentDescription = "${pokemon.name}" }
             )
         }
     }

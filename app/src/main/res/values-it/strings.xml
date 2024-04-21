@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">PokeMonApp</string>
     <!-- Content description for clickable Pokemon card -->
-    <string name="clickable_pokemon_card_description">Clickable Pokemon Card</string>
+    <string name="clickable_pokemon_card_description">Carta Pokemon cliccabile</string>
 </resources>

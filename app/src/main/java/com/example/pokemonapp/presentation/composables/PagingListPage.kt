@@ -13,8 +13,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.pokemonapp.viewmodel.PokemonViewModel
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.ui.res.stringResource
 import androidx.paging.compose.items
-
+import com.example.pokemonapp.R
 
 
 /**
@@ -42,8 +43,8 @@ fun PagingListPage(
             items(pagingData) { pokemon ->
 
                 if (pokemon != null) {
-                    ClickablePokemonCard(pokemon = pokemon, onItemClick =  onItemClick)
-
+                    ClickablePokemonCard(pokemon = pokemon, contentDescription = stringResource(R.string.clickable_pokemon_card_description)
+                        , onItemClick =  onItemClick)
                 }
             }
             if (pagingData.loadState.append.endOfPaginationReached.not()) {
