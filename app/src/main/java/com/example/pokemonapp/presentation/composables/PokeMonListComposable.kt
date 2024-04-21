@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,25 +26,30 @@ import com.example.pokemonapp.data.model.Pokemon
  * @param verticalPadding Vertical padding applied to the card. Default is 8dp.
  */
 @Composable
-fun ClickablePokemonCard(pokemon: Pokemon,
-                         onItemClick: (Int) -> Unit,
-                         textSize: TextUnit = 20.sp,
-                         horizontalPadding: Dp = 16.dp,
-                         verticalPadding: Dp = 8.dp) {
+fun ClickablePokemonCard(
+    pokemon: Pokemon,
+    onItemClick: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    textSize: TextUnit = 20.sp,
+    horizontalPadding: Dp = 16.dp,
+    verticalPadding: Dp = 8.dp
+) {
     val pokeMonId = pokemon.extractPokeMonId() ?: -1
 
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
-            .clickable { onItemClick(pokeMonId) }
+            .clickable { onItemClick(pokeMonId) },
+        shape = RoundedCornerShape(8.dp)
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = horizontalPadding)
+            modifier = Modifier.padding(horizontal = horizontalPadding, vertical = verticalPadding)
         ) {
             Text(
                 text = pokemon.name,
-                style = TextStyle(fontSize = textSize)
+                style = TextStyle(fontSize = textSize),
+                modifier = Modifier.padding(vertical = 8.dp)
             )
         }
     }
