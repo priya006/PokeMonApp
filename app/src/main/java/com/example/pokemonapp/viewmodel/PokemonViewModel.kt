@@ -4,11 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingSource
 import com.example.pokemonapp.data.model.PokemonListResponse
 import com.example.pokemonapp.domain.repository.PokemonRepository
 import kotlinx.coroutines.launch
 import com.example.pokemonapp.data.model.PokeMonResult
+import com.example.pokemonapp.data.model.Pokemon
 import com.example.pokemonapp.data.model.PokemonDetailsResponse
+import com.example.pokemonapp.data.model.PokemonPagingDataSource
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -78,5 +81,15 @@ class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() 
             else -> "An error occurred"
         }
         resultLiveData.value = PokeMonResult.Error(errorMessage, e)
+    }
+
+    /**
+     * Fetches a paginated list of Pokémon details from the API.
+     *
+     * @param offset The offset to fetch the paginated list from.
+     * @return A [PokemonListResponse] containing the paginated list of Pokémon details.
+     */
+    fun getPokemonPagingSource(): PagingSource<Int, Pokemon> {
+        return PokemonPagingDataSource(repository)
     }
 }
