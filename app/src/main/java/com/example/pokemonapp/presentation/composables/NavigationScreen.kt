@@ -20,14 +20,15 @@ fun NavigateFromListToDetailScreen(
             ListScreen(navController = navController, pokemonViewModel)
         }
         composable(
-            route = "detail/{pokemonId}",
-            arguments = listOf(navArgument("pokemonId") { type = NavType.IntType })
+            route = "detail/{pokeMonId}",
+            arguments = listOf(navArgument("pokeMonId") { type = NavType.IntType })
         ) { backStackEntry ->
-            val pokemonId = backStackEntry.arguments?.getInt("pokemonId")
-            if (pokemonId != null) {
-                DetailScreen(pokemonViewModel,pokemonId)
+            val pokeMonId = backStackEntry.arguments?.getInt("pokeMonId")
+            if (pokeMonId != null) {
+                DetailScreen(pokemonViewModel,pokeMonId)
             } else {
-                // Handle the case where pokemonId is null
+                // navigating back to the previous screen
+                navController.popBackStack()
             }
         }
     }
@@ -39,8 +40,8 @@ fun ListScreen(
     pokemonViewModel: PokemonViewModel
 ) {
     //pagination is handled
-    PagingListPage(pokemonViewModel = pokemonViewModel , onItemClick = { pokemonId ->
-        navController.navigate("detail/$pokemonId")
+    PagingListPage(pokemonViewModel = pokemonViewModel , onItemClick = { pokeMonId ->
+        navController.navigate("detail/$pokeMonId")
     })
 
 
@@ -48,11 +49,11 @@ fun ListScreen(
 @Composable
 fun DetailScreen(
     pokemonViewModel: PokemonViewModel,
-    pokemonId : Int
+    pokeMonId : Int
 ) {
-    // Invoke the PokeMonDetailComposable and pass the pokemonId
+    // Invoke the PokeMonDetailComposable and pass the pokeMonId
     PokeMonDetailComposable(
         pokemonViewModel = pokemonViewModel,
-        pokeMonId = pokemonId
+        pokeMonId = pokeMonId
     )
 }

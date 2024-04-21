@@ -14,7 +14,7 @@ data class Pokemon(
     val url: String?
 )
 {
-    fun extractPokemonId(): Int? {
+    fun extractPokeMonId(): Int? {
         try {
             // Parse the URL using Uri.parse
             val uri = Uri.parse(url)

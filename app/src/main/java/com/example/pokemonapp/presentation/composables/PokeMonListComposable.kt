@@ -30,13 +30,13 @@ fun ClickablePokemonCard(pokemon: Pokemon,
                          textSize: TextUnit = 20.sp,
                          horizontalPadding: Dp = 16.dp,
                          verticalPadding: Dp = 8.dp) {
-    val pokemonId = pokemon.extractPokemonId() ?: -1
+    val pokeMonId = pokemon.extractPokeMonId() ?: -1
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
-            .clickable { onItemClick(pokemonId) }
+            .clickable { onItemClick(pokeMonId) }
     ) {
         Column(
             modifier = Modifier.padding(horizontal = horizontalPadding)

@@ -47,16 +47,16 @@ class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() 
 
 
     /**
-     * Fetches the details of a Pokemon with the specified [pokemonId] from the repository
+     * Fetches the details of a Pokemon with the specified [pokeMonId] from the repository
      * and updates the [_pokemonDetails] LiveData with the result.
      *
-     * @param pokemonId The ID of the Pokemon whose details are to be fetched.
+     * @param pokeMonId The ID of the Pokemon whose details are to be fetched.
      */
-    fun fetchPokemonDetails(pokemonId: Int) {
+    fun fetchPokemonDetails(pokeMonId: Int) {
         viewModelScope.launch {
             _pokemonDetails.value = PokeMonResult.Loading
             try {
-                val pokemonDetailsResponse = repository.getPokemonDetails(pokemonId)
+                val pokemonDetailsResponse = repository.getPokemonDetails(pokeMonId)
                 _pokemonDetails.value = PokeMonResult.Success(pokemonDetailsResponse)
             } catch (e: Exception) {
                 handleApiError(_pokemonDetails, e)
