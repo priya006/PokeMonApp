@@ -12,15 +12,18 @@ import com.example.pokemonapp.data.model.PokeMonResult
 import com.example.pokemonapp.data.model.Pokemon
 import com.example.pokemonapp.data.model.PokemonDetailsResponse
 import com.example.pokemonapp.data.model.PokemonPagingDataSource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 
-class PokemonViewModel(private val repository: PokemonRepository) : ViewModel() {
+@HiltViewModel
+class PokemonViewModel @Inject constructor(private val repository: PokemonRepository) : ViewModel() {
 
     private val _pokemonList = MutableLiveData<PokeMonResult<PokemonListResponse>>()
     val pokemonList: LiveData<PokeMonResult<PokemonListResponse>> = _pokemonList

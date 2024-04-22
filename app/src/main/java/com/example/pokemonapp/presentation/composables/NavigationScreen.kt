@@ -70,7 +70,7 @@ fun DetailScreen(
     pokemonViewModel: PokemonViewModel,
     pokemonName: String
 ) {
-    
+
     PokeMonSearchDetailComposable(
         pokemonViewModel = pokemonViewModel,
         pokemonName = pokemonName
