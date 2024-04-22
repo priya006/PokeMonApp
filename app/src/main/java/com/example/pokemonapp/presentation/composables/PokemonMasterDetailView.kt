@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.example.pokemonapp.presentation.composables.detailpage.PokeMonSearchDetailComposable
+import com.example.pokemonapp.presentation.composables.detailpage.PokemonDetailScreenWithSearch
 import com.example.pokemonapp.viewmodel.PokemonViewModel
 
 @Composable
@@ -29,7 +29,7 @@ fun MasterDetailView(
         Box(modifier = Modifier.weight(1f)) {
             // Display the details of the selected Pokemon
             if (selectedPokemonName.value.isNotEmpty()) {
-                PokeMonSearchDetailComposable(pokemonViewModel, selectedPokemonName.value)
+                PokemonDetailScreenWithSearch(pokemonViewModel, selectedPokemonName.value)
             }
         }
     }

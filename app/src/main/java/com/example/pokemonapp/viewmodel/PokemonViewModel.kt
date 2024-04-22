@@ -90,7 +90,14 @@ class PokemonViewModel @Inject constructor(private val repository: PokemonReposi
      *
      * @param pokemonName The ID of the Pokemon whose details are to be fetched.
      */
-    fun fetchPokemonDetails(pokemonName: String) {
+    fun fetchPokemonDetails(pokemonName: String?) {
+        // Check if pokemonName is null or empty
+        if (pokemonName.isNullOrBlank()) {
+            // Handle the case where pokemonName is not entered
+            _pokemonDetails.value = PokeMonResult.Error("Pokemon name is required.")
+            return
+        }
+
         viewModelScope.launch {
             _pokemonDetails.value = PokeMonResult.Loading
             try {

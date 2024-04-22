@@ -1,9 +1,6 @@
 package com.example.pokemonapp.presentation.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.navigation.NavController
 import androidx.navigation.NavType
@@ -11,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.pokemonapp.presentation.composables.detailpage.PokeMonSearchDetailComposable
+import com.example.pokemonapp.presentation.composables.detailpage.PokemonDetailScreenWithSearch
 import com.example.pokemonapp.viewmodel.PokemonViewModel
 
 /**
@@ -82,7 +79,7 @@ fun DetailScreen(
     pokemonName: String
 ) {
 
-    PokeMonSearchDetailComposable(
+    PokemonDetailScreenWithSearch(
         pokemonViewModel = pokemonViewModel,
         pokemonName = pokemonName
     )

@@ -17,45 +17,45 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.pokemonapp.data.model.PokeMonResult
 import com.example.pokemonapp.viewmodel.PokemonViewModel
 
 /**
- * A composable function to display details of a Pokémon.
+ * Composable function to display detailed information about a Pokemon, including its name, ID, height,
+ * weight, type, and stats. Allows searching for Pokemon by name and toggling auto search.
  *
- * @param pokemonViewModel The [PokemonViewModel] responsible for fetching Pokémon details.
- * @param pokemonName The ID of the Pokémon whose details should be displayed.
- * @param modifier The modifier for the composable, used to customize its layout and appearance.
+ * @param pokemonViewModel The view model responsible for handling Pokemon data.
+ * @param pokemonName The name of the Pokemon to display detailed information about.
  */
 @Composable
-fun PokeMonSearchDetailComposable(
+fun PokemonDetailScreenWithSearch(
     pokemonViewModel: PokemonViewModel,
     pokemonName: String
 ) {
-
+    // Collecting the Pokemon details, search text, and switch toggle state from the view model
     val pokemonDetails by pokemonViewModel.pokemonDetails.collectAsState()
     val searchText by pokemonViewModel.searchText.collectAsState()
     val isSwitchToggled by pokemonViewModel.isSwitchToggled.collectAsState()
 
+    // Launching an effect to fetch Pokemon details based on the provided name
     LaunchedEffect(pokemonName) {
-        val nameToLoad = if (searchText.isBlank()) pokemonName else searchText
+        val nameToLoad = searchText?.takeIf { it.isNotBlank() } ?: pokemonName
         pokemonViewModel.fetchPokemonDetails(nameToLoad)
     }
 
-    androidx.compose.material3.Surface(modifier = Modifier.fillMaxSize()) {
+   Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.padding(8.dp)
             .verticalScroll(rememberScrollState()),
@@ -63,7 +63,7 @@ fun PokeMonSearchDetailComposable(
         ) {
             OutlinedTextField(
                 value = searchText,
-                onValueChange = { newValue -> pokemonViewModel.onSearchTextChange(newValue) },
+                onValueChange = { newTextEntered -> pokemonViewModel.onSearchTextChange(newTextEntered) },
                 enabled = true,
                 singleLine = true,
                 leadingIcon = {
@@ -104,32 +104,42 @@ fun PokeMonSearchDetailComposable(
                     val pokemonDetailsResultData = pokemonDetailsResult.data
                     val spritesImage = pokemonDetailsResultData.sprites
 
-                    // Create a new instance of PokemonDetailsResponse with modified id
-                    val pokeMonDetailsModified =
-                        pokemonDetailsResultData.copy(name = pokemonDetailsResultData.name)
-                    val types = pokemonDetailsResultData.types
-                    val stats = pokemonDetailsResultData.stats
-                    val typeName = types.firstOrNull()?.type?.name ?: "Unknown Type"
-                    val statsNumber = stats.firstOrNull()?.base_stat ?: 0
-
-                    Image(
-                        painter = rememberImagePainter(
-                            spritesImage.front_shiny ?: spritesImage.back_default
-                        ),
-                        contentDescription = "Pokemon Image",
-                        modifier = Modifier
-                            .size(550.dp) // Set the size of the image
-                            .padding(8.dp), // Add padding around the image
-                        contentScale = ContentScale.Fit // Scale the image to fit the container
-                    )
-                    Text("ID:     ${pokeMonDetailsModified.id}")
-                    Text("Name:   ${pokeMonDetailsModified.name}")
-                    Text("Height: ${pokeMonDetailsModified.height}")
-                    Text("Weight: ${pokeMonDetailsModified.weight}")
-                    Text("Type:   ${typeName}")
-                    Text("Stats:  ${statsNumber}")
+                    if (pokemonDetailsResultData != null) {
+                        val pokemonName = pokemonDetailsResultData.name ?: "Unknown Name"
+                        // Create a new instance of PokemonDetailsResponse with modified id
+                        val pokeMonDetailsModified =
+                            pokemonDetailsResultData.copy(name = pokemonName)
+                        val types = pokemonDetailsResultData.types
+                        val stats = pokemonDetailsResultData.stats
+                        val typeName = types.firstOrNull()?.type?.name ?: "Unknown Type"
+                        val statsNumber = stats.firstOrNull()?.base_stat ?: 0
+                        Column(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Image(
+                                painter = rememberImagePainter(
+                                    spritesImage.front_shiny ?: spritesImage.back_default
+                                ),
+                                contentDescription = "Pokemon Image",
+                                modifier = Modifier
+                                    .size(200.dp) // Set the size of the image
+                                    .padding(8.dp), // Add padding around the image
+                                contentScale = ContentScale.Fit // Scale the image to fit the container
+                            )
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text("ID:     ${pokeMonDetailsModified.id}")
+                                Text("Name:   ${pokeMonDetailsModified.name}")
+                                Text("Height: ${pokeMonDetailsModified.height}")
+                                Text("Weight: ${pokeMonDetailsModified.weight}")
+                                Text("Type:   ${typeName}")
+                                Text("Stats:  ${statsNumber}")
+                            }
+                        }
+                    }
                 }
-
                 is PokeMonResult.Error ->
                     Box(
                         modifier = Modifier
@@ -137,7 +147,7 @@ fun PokeMonSearchDetailComposable(
                     ) {
                         Text(
                             modifier = Modifier.align(Alignment.Center),
-                            text = "Error occured"
+                            text = "Error Occured"
                         )
                     }
 
