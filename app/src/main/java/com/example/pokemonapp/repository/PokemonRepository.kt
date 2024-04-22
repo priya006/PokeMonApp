@@ -23,11 +23,11 @@ class PokemonRepository(val pokeMonApiService : PokemonApiService) {
     /**
      * Fetches the details of a specific Pokémon identified by [pokeMonId] from the API.
      *
-     * @param pokeMonId The ID of the Pokémon whose details are to be fetched.
+     * @param pokemonName The ID of the Pokémon whose details are to be fetched.
      * @return The details of the specified Pokémon retrieved from the API.
      */
-    suspend fun getPokemonDetails(pokeMonId : Int): PokemonDetailsResponse {
-        return pokeMonApiService.getPokemonDetails(pokeMonId)
+    suspend fun getPokemonDetails(pokemonName : String): PokemonDetailsResponse {
+        return pokeMonApiService.getPokemonDetails(pokemonName)
     }
 
     suspend fun getPokemonListPagination(offset : Int): PokemonListResponse {

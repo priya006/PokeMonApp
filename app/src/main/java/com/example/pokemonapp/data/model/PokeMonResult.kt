@@ -10,7 +10,7 @@ sealed class PokeMonResult<out T> {
     /**
      * Represents the loading state of an operation.
      */
-    object Loading : PokeMonResult<Nothing>()
+    data object Loading : PokeMonResult<Nothing>()
 
     /**
      * Represents a successful operation with the result data.

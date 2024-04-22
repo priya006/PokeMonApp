@@ -30,20 +30,20 @@ import com.example.pokemonapp.data.model.Pokemon
 @Composable
 fun ClickablePokemonCard(
     pokemon: Pokemon,
-    onItemClick: (Int) -> Unit,
+    onItemClick: (String) -> Unit,
     contentDescription: String,
     textSize: TextUnit = 20.sp,
     horizontalPadding: Dp = 16.dp,
     verticalPadding: Dp = 8.dp,
     modifier: Modifier = Modifier
 ) {
-    val pokeMonId = pokemon.extractPokeMonId() ?: -1
+    val pokemonName = pokemon.name
 
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = horizontalPadding, vertical = verticalPadding)
-            .clickable { onItemClick(pokeMonId) }
+            .clickable { onItemClick(pokemonName) }
             .semantics { this.contentDescription = contentDescription },
         shape = RoundedCornerShape(8.dp),
     ) {

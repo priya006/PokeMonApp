@@ -28,7 +28,7 @@ import com.example.pokemonapp.R
 @Composable
 fun PagingListPage(
     pokemonViewModel: PokemonViewModel,
-    onItemClick : (Int) -> Unit
+    onItemClick : (String) -> Unit
 ) {
     val pager = remember {
         Pager(

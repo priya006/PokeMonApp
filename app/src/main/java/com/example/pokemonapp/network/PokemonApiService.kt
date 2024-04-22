@@ -31,9 +31,9 @@ interface PokemonApiService {
 
     /**
      * Retrieves details of a specific Pokemon.
-     * @param pokeMonId The ID of the Pokemon to retrieve details for.
+     * @param pokeMonName The ID of the Pokemon to retrieve details for.
      * @return [PokemonDetailsResponse] containing the details of the specified Pokemon.
      */
     @GET("pokemon/{id}")
-    suspend fun getPokemonDetails(@Path("id") pokeMonId: Int): PokemonDetailsResponse
+    suspend fun getPokemonDetails(@Path("id") pokeMonName: String): PokemonDetailsResponse
 }

@@ -28,18 +28,18 @@ import com.example.pokemonapp.viewmodel.PokemonViewModel
  * A composable function to display details of a Pokémon.
  *
  * @param pokemonViewModel The [PokemonViewModel] responsible for fetching Pokémon details.
- * @param pokeMonId The ID of the Pokémon whose details should be displayed.
+ * @param pokemonName The ID of the Pokémon whose details should be displayed.
  * @param modifier The modifier for the composable, used to customize its layout and appearance.
  */
 @Composable
 fun PokeMonDetailComposable(pokemonViewModel: PokemonViewModel,
-                            pokeMonId: Int,
+                            pokemonName: String,
                             modifier: Modifier = Modifier) {
 
 
-    val pokemonDetails by pokemonViewModel.pokemonDetails.observeAsState()
-    LaunchedEffect(pokeMonId) {
-        pokemonViewModel.fetchPokemonDetails(pokeMonId)
+    val pokemonDetails by pokemonViewModel.pokemonDetailsBeforeSearch.observeAsState()
+    LaunchedEffect(pokemonName) {
+        pokemonViewModel.fetchPokemonDetails(pokemonName)
     }
     when(val pokemonDetailsResult = pokemonDetails) {
         is PokeMonResult.Success -> {
@@ -47,7 +47,7 @@ fun PokeMonDetailComposable(pokemonViewModel: PokemonViewModel,
             val spritesImage = pokemonDetails.sprites
 
             // Create a new instance of PokemonDetailsResponse with modified id
-            val pokeMonDetailsModified = pokemonDetails.copy(id = pokeMonId)
+            val pokeMonDetailsModified = pokemonDetails.copy(name = pokemonName)
             val types = pokemonDetails.types
             val stats = pokemonDetails.stats
             val typeName = types.firstOrNull()?.type?.name ?: "Unknown Type"

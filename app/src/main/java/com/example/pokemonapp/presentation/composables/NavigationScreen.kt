@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.pokemonapp.presentation.composables.detailpage.PokeMonDetailComposable
+import com.example.pokemonapp.presentation.composables.detailpage.PokeMonSearchDetailComposable
 import com.example.pokemonapp.viewmodel.PokemonViewModel
 
 /**
@@ -25,12 +25,12 @@ fun NavigateFromListToDetailScreen(
             ListScreen(navController = navController, pokemonViewModel)
         }
         composable(
-            route = "detail/{pokeMonId}",
-            arguments = listOf(navArgument("pokeMonId") { type = NavType.IntType })
+            route = "detail/{pokemonName}",
+            arguments = listOf(navArgument("pokemonName") { type = NavType.StringType })
         ) { backStackEntry ->
-            val pokeMonId = backStackEntry.arguments?.getInt("pokeMonId")
-            if (pokeMonId != null) {
-                DetailScreen(pokemonViewModel, pokeMonId)
+            val pokemonName = backStackEntry.arguments?.getString("pokemonName")
+            if (pokemonName != null) {
+                DetailScreen(pokemonViewModel, pokemonName)
             } else {
                 DisplayError(navController)
             }
@@ -50,8 +50,12 @@ fun ListScreen(
     pokemonViewModel: PokemonViewModel
 ) {
     //pagination is handled
-    PagingListPage(pokemonViewModel = pokemonViewModel, onItemClick = { pokeMonId ->
-        navController.navigate("detail/$pokeMonId")
+    PagingListPage(pokemonViewModel = pokemonViewModel, onItemClick = { pokemonName ->
+        navController.navigate("detail/$pokemonName") {
+            popUpTo("detail_screen_route") { inclusive = true }
+            launchSingleTop = true
+        }
+        pokemonViewModel.onSearchTextChange("")
     })
 }
 
@@ -64,12 +68,12 @@ fun ListScreen(
 @Composable
 fun DetailScreen(
     pokemonViewModel: PokemonViewModel,
-    pokeMonId: Int
+    pokemonName: String
 ) {
-    // Invoke the PokeMonDetailComposable and pass the pokeMonId
-    PokeMonDetailComposable(
+    
+    PokeMonSearchDetailComposable(
         pokemonViewModel = pokemonViewModel,
-        pokeMonId = pokeMonId
+        pokemonName = pokemonName
     )
 }
 
