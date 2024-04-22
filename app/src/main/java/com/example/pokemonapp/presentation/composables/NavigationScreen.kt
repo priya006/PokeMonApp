@@ -1,6 +1,10 @@
 package com.example.pokemonapp.presentation.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -20,19 +24,26 @@ fun NavigateFromListToDetailScreen(
     pokemonViewModel: PokemonViewModel,
 ) {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "list") {
-        composable("list") {
-            ListScreen(navController = navController, pokemonViewModel)
+    if (isTablet()) {
+        MasterDetailView(pokemonViewModel) { pokemonName ->
+            pokemonViewModel.fetchPokemonDetails(pokemonName)
         }
-        composable(
-            route = "detail/{pokemonName}",
-            arguments = listOf(navArgument("pokemonName") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val pokemonName = backStackEntry.arguments?.getString("pokemonName")
-            if (pokemonName != null) {
-                DetailScreen(pokemonViewModel, pokemonName)
-            } else {
-                DisplayError(navController)
+        pokemonViewModel.onSearchTextChange("")
+    } else {
+        NavHost(navController, startDestination = "list") {
+            composable("list") {
+                ListScreen(navController, pokemonViewModel)
+            }
+            composable(
+                route = "detail/{pokemonName}",
+                arguments = listOf(navArgument("pokemonName") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val pokemonName = backStackEntry.arguments?.getString("pokemonName")
+                if (pokemonName != null) {
+                    DetailScreen(pokemonViewModel, pokemonName)
+                } else {
+                    DisplayError(navController)
+                }
             }
         }
     }
@@ -85,4 +96,10 @@ fun DetailScreen(
 @Composable
 fun DisplayError(navController: NavController) {
     navController.popBackStack()
+}
+
+@Composable
+fun isTablet(): Boolean {
+    val screenWidth = LocalConfiguration.current.screenWidthDp
+    return screenWidth >= 600
 }
