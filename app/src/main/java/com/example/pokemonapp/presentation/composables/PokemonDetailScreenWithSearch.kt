@@ -1,4 +1,4 @@
-package com.example.pokemonapp.presentation.composables.detailpage
+package com.example.pokemonapp.presentation.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -28,9 +28,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.pokemonapp.data.model.PokeMonResult
+import com.example.pokemonapp.domain.repository.PokemonRepository
+import com.example.pokemonapp.presentation.data.FakePokemonApiService
 import com.example.pokemonapp.viewmodel.PokemonViewModel
 
 /**
@@ -174,3 +177,18 @@ fun PokemonDetailScreenWithSearch(
     }
 }
 
+@Preview
+@Composable
+fun PokemonDetailScreenWithSearchPreview() {
+    val pokemonApiService = FakePokemonApiService()
+    val pokemonRepository = PokemonRepository(pokemonApiService) // Create a fake repository
+    val pokemonViewModel = PokemonViewModel(pokemonRepository) // Provide the fake repository to the ViewModel
+    val pokemonName = "Pikachu" // Provide a sample Pokemon name for preview
+
+    Surface {
+        PokemonDetailScreenWithSearch(
+            pokemonViewModel = pokemonViewModel,
+            pokemonName = pokemonName
+        )
+    }
+}
