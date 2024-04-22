@@ -14,6 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -127,15 +128,22 @@ fun PokemonDetailScreenWithSearch(
                                     .padding(8.dp), // Add padding around the image
                                 contentScale = ContentScale.Fit // Scale the image to fit the container
                             )
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp),
                             ) {
-                                Text("ID:     ${pokeMonDetailsModified.id}")
-                                Text("Name:   ${pokeMonDetailsModified.name}")
-                                Text("Height: ${pokeMonDetailsModified.height}")
-                                Text("Weight: ${pokeMonDetailsModified.weight}")
-                                Text("Type:   ${typeName}")
-                                Text("Stats:  ${statsNumber}")
+                                Column(
+                                    modifier = Modifier
+                                        .padding(8.dp)
+                                ) {
+                                    Text("ID:     ${pokeMonDetailsModified.id}")
+                                    Text("Name:   ${pokeMonDetailsModified.name}")
+                                    Text("Height: ${pokeMonDetailsModified.height}")
+                                    Text("Weight: ${pokeMonDetailsModified.weight}")
+                                    Text("Type:   ${typeName}")
+                                    Text("Stats:  ${statsNumber}")
+                                }
                             }
                         }
                     }
