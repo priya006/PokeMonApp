@@ -27,3 +27,13 @@ This Android application provides users with an  experience to discover and inte
 **Navigation Component:** Navigation Component simplifies navigation and deep linking within the app, allowing users to navigate between different screens seamlessly and ensuring a smooth user flow.
 
 **Testing Dependencies:** Various testing dependencies including  Mockito, MockK, and AndroidX Test Runner are incorporated to enable comprehensive unit testing, integration testing, and UI testing, ensuring the reliability and quality of the app.
+
+**Tablet Experience:**
+![2024-04-23 13 47 17](https://github.com/priya006/PokeMonApp/assets/16076524/00acf585-bcbb-4012-a776-7db84e7b4cb6)
+
+**Auto Search in Mobile**
+No need to hit the search button to make a search. 
+
+
+
+
