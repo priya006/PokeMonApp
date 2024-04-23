@@ -13,7 +13,14 @@ import androidx.paging.PagingConfig
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.pokemonapp.viewmodel.PokemonViewModel
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.paging.compose.items
 import com.example.pokemonapp.R
 
@@ -25,6 +32,7 @@ import com.example.pokemonapp.R
  * @param pokemonViewModel The view model providing access to Pokémon data.
  * @param onItemClick Callback function triggered when a Pokémon card is clicked.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PagingListPage(
     pokemonViewModel: PokemonViewModel,
@@ -39,6 +47,19 @@ fun PagingListPage(
 
     val pagingData = pager.flow.collectAsLazyPagingItems()
     Column(modifier = Modifier.fillMaxSize()) {
+        TopAppBar(
+            title = {
+                Text(
+                    text = "Pokemon List",
+                    style = TextStyle(
+                        fontSize = 20.sp, // Adjust the font size as needed
+                        color = Color.Blue,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    modifier = Modifier.padding(horizontal = 16.dp) // Add padding if needed
+                )
+            }
+        )
         LazyColumn(modifier = Modifier.weight(2f)) {
             items(pagingData) { pokemon ->
 
