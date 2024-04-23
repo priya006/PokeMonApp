@@ -97,4 +97,7 @@ dependencies {
 
     // Paging for handling large datasets
     implementation("androidx.paging:paging-compose:1.0.0-alpha12")
+
+    // Dependency for testing navigation components
+    androidTestImplementation ("androidx.navigation:navigation-testing:2.5.3")
 }
