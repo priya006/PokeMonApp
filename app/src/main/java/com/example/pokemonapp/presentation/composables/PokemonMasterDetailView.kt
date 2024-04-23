@@ -19,11 +19,11 @@ fun MasterDetailView(
 
     Row(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.weight(1f)) {
-            PagingListPage(pokemonViewModel, { pokemonName ->
+            PagingListPage(pokemonViewModel) { pokemonName ->
                 // Update the selected Pokemon name when an item is clicked
                 selectedPokemonName.value = pokemonName
                 onItemClick(pokemonName)
-            })
+            }
         }
         Box(modifier = Modifier.weight(1f)) {
             // Display the details of the selected Pokemon
