@@ -8,7 +8,7 @@ This Android application provides users with an  experience to discover and inte
 
 **PokemonPaging:** The "PokemonPaging" feature utilizes the Paging library from Android Jetpack to efficiently load data from a remote data source, such as an API, in paginated chunks.
 
-**Search Functionality:** When the toggle switch is turned ON, auto-search functionality is activated, leveraging the 'debounce' mechanism to enhance the search experience. This feature introduces a brief delay before initiating the search operation, effectively reducing redundant search requests triggered by rapid user interactions. By incorporating debounce, the app optimizes resource utilization and minimizes network traffic, ensuring efficient and responsive search functionality for users.
+**Search Functionality:** When the toggle switch is turned ON, **auto-search** functionality is activated, leveraging the 'debounce' mechanism to enhance the search experience. This feature introduces a brief delay before initiating the search operation, effectively reducing redundant search requests triggered by rapid user interactions. By incorporating debounce, the app optimizes resource utilization and minimizes network traffic, ensuring efficient and responsive search functionality for users.
 
 **Pokemon Details:** View detailed information about each Pokemon, including their `Sprite image`, `ID`, `height`, `weight`, `type`, and `stats`.
 
