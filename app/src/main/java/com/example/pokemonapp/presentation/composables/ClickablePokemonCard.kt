@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -58,4 +59,24 @@ fun ClickablePokemonCard(
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun ClickablePokemonCardPreview() {
+    val pokemon = Pokemon(name = "Pikachu")
+    val onItemClick: (String) -> Unit = {}
+    val contentDescription = "Clickable Pokemon Card"
+    val textSize = 20.sp
+    val horizontalPadding = 16.dp
+    val verticalPadding = 8.dp
+
+    ClickablePokemonCard(
+        pokemon = pokemon,
+        onItemClick = onItemClick,
+        contentDescription = contentDescription,
+        textSize = textSize,
+        horizontalPadding = horizontalPadding,
+        verticalPadding = verticalPadding
+    )
 }
