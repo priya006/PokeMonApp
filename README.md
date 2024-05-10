@@ -46,13 +46,8 @@ No need to hit the search button to make a search.
 ![2024-04-24 01 40 28](https://github.com/priya006/PokeMonApp/assets/16076524/33df0101-5a5f-4512-b69a-cbf3bfc0f71e)
 
 ## Improvements
-Compose Navigation Test(Android Test) setup has been done and can render the composables. Has to be improved more is the next steps
-
-Viewmodel has livedata instead we can have state flow
 
 Scroll state has to be maintained
-
-Viewmodel Test setup has been done and committed
 
 ## Assumptions 
 Could not render the sprite image in the list page. The list api did not send image in response. 
